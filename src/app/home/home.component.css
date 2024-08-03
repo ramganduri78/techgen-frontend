@@ -1,0 +1,151 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #ffffff;
+  color: #ffffff;
+  padding: 30px 0;
+}
+
+.header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  color: #ffffff;
+  padding: 20px 0;
+  padding-left: 25%;
+  margin-bottom: 20px;
+  background-color: #c70039;
+  font-family: sans-serif;
+  border-bottom: 5px solid gold;
+  width: 100%;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.image-container img {
+  max-width: 30%;
+  height: auto;
+}
+
+.search-wrapper {
+  width: 1000px;
+  max-width: 90%;
+  margin-top: 20px;
+}
+
+.search-container {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  border-radius: 24px;
+  padding: 12px 24px;
+  box-shadow: none;
+  border: 3px solid #FFEC8B;
+  background-color: white;
+}
+
+.search-container form {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 24px;
+  padding: 16px;
+  background-color: transparent;
+}
+
+.search-button {
+  background-color: transparent;
+  border: none;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-left: 16px;
+  position: relative;
+}
+
+.search-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #DAA520;
+  border-radius: 50%;
+  opacity: 1;
+}
+
+.search-button i {
+  color: white;
+  font-size: 28px;
+  transition: transform 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.search-button:hover::before {
+  background-color: #B8860B;
+}
+
+.search-button:hover i {
+  transform: translateY(-3px);
+}
+
+.answer-container {
+  margin-top: 30px;
+  padding: 30px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 1000px;
+}
+
+.answer-container p {
+  color: #333;
+  font-size: 20px;
+  line-height: 1.8;
+}
+
+@media (max-width: 768px) {
+  .search-wrapper {
+    width: 95%;
+  }
+
+  .image-container img {
+    max-width: 50%;
+  }
+
+  .answer-container {
+    width: 95%;
+  }
+}
+
+
+.rounded-pill {
+  padding-right: 40px;
+}
+
+.btn-link {
+  padding-right: 15px;
+}

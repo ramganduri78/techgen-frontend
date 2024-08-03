@@ -1,0 +1,26 @@
+<div class="header">
+    <h1 class="text-center my-4">EFT-Tech Companion</h1>
+  </div>
+  <div class="container">
+    <div class="image-container">
+      <img src="assets/copilot.png" alt="Copilot Image">
+    </div>
+    <div class="search-wrapper">
+      <div class="search-container">
+        <form [formGroup]="searchForm" (ngSubmit)="onSearch($event)">
+          <input type="text" class="search-input" formControlName="query" placeholder="Enter your prompt..." />
+          <button class="search-button" type="submit" title="Search" (click)="onSearch($event)">
+  <i class="fas fa-arrow-up"></i>
+</button>
+        </form>
+      </div>
+    </div>
+    
+     <div *ngIf="answer" class="answer-container">
+      <p>{{ answer }}</p>
+    </div>
+
+    <!-- <div class="answer-container">
+        <p>elephants are animals</p>
+      </div>
+  </div> -->
