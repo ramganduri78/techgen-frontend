@@ -1,12 +1,13 @@
+
+
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: center;
   min-height: 100vh;
   background-color: #ffffff;
   color: #ffffff;
-  padding: 30px 0;
+  padding: 0 0 30px;
 }
 
 .header {
@@ -27,15 +28,92 @@
   font-size: 2.5rem;
 }
 
+.top-controls {
+  width: 100%;
+  max-width: 1000px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px 10px;
+  border-bottom: 2px solid #FFD700;
+  position: relative; /* Add this */
+}
+
+.select-wrapper {
+  flex-grow: 1;
+  max-width: 45%; /* Increase this */
+  margin-top: 10px;
+  margin-right: 10px; /* Add some space between selects */
+}
+
+.select-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* Add this new style for the icon */
+.icon-button {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  .top-controls {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0 10px 10px;
+    margin-top: -20px;
+  }
+
+  .select-wrapper {
+    max-width: 100%;
+    margin-bottom: 10px;
+    margin-right: 0; /* Remove right margin on mobile */
+  }
+
+  .icon-button {
+    position: static;
+    align-self: flex-end;
+    transform: none;
+    margin-top: 10px;
+  }
+}
+
 .image-container {
   display: flex;
-  justify-content: center;
+  justify-content: center; /* Aligns content to the extreme left */
   margin-bottom: 20px;
+  position: relative;
 }
 
 .image-container img {
   max-width: 30%;
-  height: auto;
+  height: 40px;
+}
+
+
+.header h1 {
+  display: flex;
+  align-items: center; /* Aligns the text and image vertically in the middle */
+  justify-content: center; /* Centers the content within the header */
+  font-size: 2.5rem; /* Adjust as necessary for your design */
+}
+
+.logo-image {
+  height: 1em; /* Ensures the image height matches the text size */
+  margin-left: 10px; /* Optional: adds some space between the text and the image */
 }
 
 .search-wrapper {
@@ -128,24 +206,32 @@
 }
 
 @media (max-width: 768px) {
+  .top-controls {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0 10px 10px;
+    margin-top: -20px;
+  }
+
+  .select-wrapper {
+    max-width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .icon-wrapper {
+    margin-left: 0;
+    text-align: right;
+  }
+
   .search-wrapper {
     width: 95%;
   }
-
+  
   .image-container img {
     max-width: 50%;
   }
-
+  
   .answer-container {
     width: 95%;
   }
-}
-
-
-.rounded-pill {
-  padding-right: 40px;
-}
-
-.btn-link {
-  padding-right: 15px;
 }

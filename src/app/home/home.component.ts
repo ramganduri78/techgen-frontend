@@ -18,10 +18,13 @@ export class HomeComponent implements OnInit {
     "Creating responsive layouts with CSS Grid",
     "Implementing authentication in a REST API"
   ];
+  contexts: string[] = ['Context 1', 'Context 2', 'Context 3'];
+  selectedContext: string = '';
 
   constructor(private fb: FormBuilder, private restConnectService: RestConnectService) {
     this.searchForm = this.fb.group({
-      query: ''
+      query: '',
+      selectedContext:''
     });
   }
 
@@ -35,8 +38,11 @@ export class HomeComponent implements OnInit {
   
 
     const query = this.searchForm.get('query')?.value.trim();
+
+    const selectedContext = this.selectedContext;
+
     if (query) {
-      this.restConnectService.search(query).subscribe(
+      this.restConnectService.search(query,selectedContext).subscribe(
         response => {
           // Assuming response is in the format { "answer": "Answer: <actual_answer>" }
           const answerStartIndex = response.answer.indexOf('Answer: ');

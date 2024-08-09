@@ -9,12 +9,12 @@ import { Observable } from 'rxjs';
 })
 export class RestConnectService {
 
-  private apiUrl = 'https://f0d3-34-127-83-175.ngrok-free.app/api/question';
+  private apiUrl = 'https://0990-34-168-242-42.ngrok-free.app/api/question';
   
 
   constructor(private http: HttpClient) { }
-  search(query: string): Observable<any> {
-    const context = 'animal'; // Hardcoded context value
+  search(query: string,context:string): Observable<any> {
+   
     const body = {
       question: query,
       context: context

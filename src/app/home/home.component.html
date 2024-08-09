@@ -1,26 +1,50 @@
 <div class="header">
-    <h1 class="text-center my-4">EFT-Tech Companion</h1>
-  </div>
-  <div class="container">
-    <div class="image-container">
-      <img src="assets/copilot.png" alt="Copilot Image">
-    </div>
-    <div class="search-wrapper">
-      <div class="search-container">
-        <form [formGroup]="searchForm" (ngSubmit)="onSearch($event)">
-          <input type="text" class="search-input" formControlName="query" placeholder="Enter your prompt..." />
-          <button class="search-button" type="submit" title="Search" (click)="onSearch($event)">
-  <i class="fas fa-arrow-up"></i>
-</button>
-        </form>
-      </div>
+  <h1 class="text-center my-4">
+    EFT-Tech Companion
+    <img src="assets/copilot.png" alt="Copilot Image" class="logo-image">
+  </h1>
+</div>
+
+<div class="container">
+  <div class="top-controls">
+    <div class="select-wrapper">
+      
+    <select class="select-input" [(ngModel)]="selectedContext">
+
+        <option value="" disabled selected>Select Context</option>
+        <option value="Autosys Batch Guard">Autosys Batch Guard</option>
+        <option value="Database Sentinel">Database Sentinel</option>
+        <option value="Predictice IQ">Predictice IQ</option>
+        <option value="RCAnalyser">RCAnalyser</option>
+        <option value="SmartFlow">SmartFlow</option>
+      </select>
     </div>
     
-     <div *ngIf="answer" class="answer-container">
-      <p>{{ answer }}</p>
+    <div class="select-wrapper">
+      <select class="select-input">
+        <option value="" disabled selected>Select Model</option>
+        <option value="Mistral AI">Mistral AI</option>
+        <option value="Llama 3.0">Llama 3.0</option>
+        <option value="Phi 2">Phi 2</option>
+      </select>
     </div>
+  
+    
+  </div>
 
-    <!-- <div class="answer-container">
-        <p>elephants are animals</p>
-      </div>
-  </div> -->
+ 
+  
+  <div class="search-wrapper">
+    <div class="search-container">
+      <form [formGroup]="searchForm" (ngSubmit)="onSearch($event)">
+        <input type="text" class="search-input" formControlName="query" placeholder="Enter your prompt..." />
+        <button class="search-button" type="submit" title="Search" (click)="onSearch($event)">
+          <i class="fas fa-arrow-up"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+  <div *ngIf="answer" class="answer-container">
+    <p>{{ answer }}</p>
+  </div>
+</div>
