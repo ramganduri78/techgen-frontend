@@ -192,17 +192,51 @@
 .answer-container {
   margin-top: 30px;
   padding: 30px;
-  background-color: #f0f0f0;
+  background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: 90%;
   max-width: 1000px;
+  font-family: 'Arial', sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #000000;
+}
+
+.answer-container {
+  margin-top: 30px;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 1000px;
+  font-family: 'Arial', sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #000000;
 }
 
 .answer-container p {
-  color: #333;
-  font-size: 20px;
-  line-height: 1.8;
+  margin-bottom: 15px;
+}
+
+.answer-container ul, 
+.answer-container ol {
+  padding-left: 30px;
+  margin-bottom: 15px;
+}
+
+.answer-container li {
+  margin-bottom: 10px;
+}
+
+.answer-container ul > li {
+  list-style-type: disc;
+}
+
+.answer-container ol > li {
+  list-style-type: decimal;
 }
 
 @media (max-width: 768px) {
@@ -233,5 +267,68 @@
   
   .answer-container {
     width: 95%;
+  }
+
+
+  .search-button:disabled {
+    cursor: not-allowed;
+  }
+  
+  .search-button:disabled::before {
+    background-color: #cccccc;
+  }
+  
+  .search-button:disabled i {
+    color: #999999;
+  }
+  
+  .spinner-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+  
+  .spinner {
+    width: 60px;
+    height: 60px;
+    position: relative;
+    margin-bottom: 10px;
+  }
+  
+  .double-bounce1, .double-bounce2 {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #c70039;
+    opacity: 0.6;
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: sk-bounce 2.0s infinite ease-in-out;
+  }
+  
+  .double-bounce2 {
+    animation-delay: -1.0s;
+  }
+  
+  @keyframes sk-bounce {
+    0%, 100% { 
+      transform: scale(0.0);
+    } 50% { 
+      transform: scale(1.0);
+    }
+  }
+  
+  .loading-text {
+    font-size: 18px;
+    color: #333;
+    margin-top: 10px;
   }
 }

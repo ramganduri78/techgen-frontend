@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { RestConnectService } from './rest-connect.service';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
@@ -10,62 +11,71 @@ import { RestConnectService } from './rest-connect.service';
 export class HomeComponent implements OnInit {
   searchForm: FormGroup;
   answer: string = '';
-  suggestions = [
-    "How to implement lazy loading in Angular?",
-    "Best practices for state management in React",
-    "Debugging techniques for Node.js applications",
-    "Optimizing database queries in PostgreSQL",
-    "Creating responsive layouts with CSS Grid",
-    "Implementing authentication in a REST API"
-  ];
+  formattedAnswer: SafeHtml = '';
   contexts: string[] = ['Context 1', 'Context 2', 'Context 3'];
   selectedContext: string = '';
 
-  constructor(private fb: FormBuilder, private restConnectService: RestConnectService) {
+  constructor(
+    private fb: FormBuilder, 
+    private restConnectService: RestConnectService,
+    private sanitizer: DomSanitizer
+  ) {
     this.searchForm = this.fb.group({
       query: '',
-      selectedContext:''
+      selectedContext: ''
     });
   }
 
   ngOnInit(): void {}
 
-  onSearch(event?: Event){
-
+  onSearch(event?: Event) {
     if (event) {
-      event.preventDefault(); // Prevent the default form submission
+      event.preventDefault();
     }
-  
 
     const query = this.searchForm.get('query')?.value.trim();
-
     const selectedContext = this.selectedContext;
 
     if (query) {
-      this.restConnectService.search(query,selectedContext).subscribe(
+      this.restConnectService.search(query, selectedContext).subscribe(
         response => {
-          // Assuming response is in the format { "answer": "Answer: <actual_answer>" }
           const answerStartIndex = response.answer.indexOf('Answer: ');
           if (answerStartIndex !== -1) {
             this.answer = response.answer.substring(answerStartIndex + 'Answer: '.length);
-            console.log(this.answer)
+            this.formattedAnswer = this.formatAnswer(this.answer);
           } else {
-            this.answer = ''; // Handle if 'Answer: ' is not found
+            this.answer = '';
+            this.formattedAnswer = '';
           }
         },
         error => {
           console.error('Error fetching data:', error);
-          // Handle error as needed
         }
       );
     }
   }
 
+  formatAnswer(answer: string): SafeHtml {
+    // Convert numbered lists
+    answer = answer.replace(/^\d+\.\s/gm, '<li>');
+    
+    // Convert bullet points
+    answer = answer.replace(/^[-*]\s/gm, '<li>');
+    
+    // Wrap list items in <ul> or <ol> tags
+    answer = answer.replace(/<li>.*(?=(\n<li>|$))/gs, (match, p1, offset, string) => {
+      if (string.charAt(offset - 1) === '.') {
+        return `<ol>${match}</ol>`;
+      }
+      return `<ul>${match}</ul>`;
+    });
+    
+    // Close list items
+    answer = answer.replace(/<li>(.*?)(?=<li>|<\/[uo]l>|$)/g, '<li>$1</li>');
+    
+    // Convert newlines to <br> tags for non-list content
+    answer = answer.replace(/\n(?!<\/?[uo]l>|<li>)/g, '<br>');
 
-  useSuggestion(suggestion: string) {
-    this.searchForm.patchValue({ query: suggestion });
-    this.onSearch();
+    return this.sanitizer.bypassSecurityTrustHtml(answer);
   }
 }
-
-

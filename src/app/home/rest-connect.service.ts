@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class RestConnectService {
 
-  private apiUrl = 'https://0990-34-168-242-42.ngrok-free.app/api/question';
+  private apiUrl = 'https://b684-34-125-18-134.ngrok-free.app/api/question';
   
 
   constructor(private http: HttpClient) { }

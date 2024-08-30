@@ -1,16 +1,14 @@
-<div class="header">
-  <h1 class="text-center my-4">
-    EFT-Tech Companion
-    <img src="assets/copilot.png" alt="Copilot Image" class="logo-image">
-  </h1>
-</div>
-
 <div class="container">
+  <div class="header">
+    <h1 class="text-center my-4">
+      <img src="assets/copilot.png" alt="Copilot Image" class="logo-image">
+      gEenFT.ai
+    </h1>
+  </div>
+
   <div class="top-controls">
     <div class="select-wrapper">
-      
-    <select class="select-input" [(ngModel)]="selectedContext">
-
+      <select class="select-input" [(ngModel)]="selectedContext">
         <option value="" disabled selected>Select Context</option>
         <option value="Autosys Batch Guard">Autosys Batch Guard</option>
         <option value="Database Sentinel">Database Sentinel</option>
@@ -28,12 +26,8 @@
         <option value="Phi 2">Phi 2</option>
       </select>
     </div>
-  
-    
   </div>
 
- 
-  
   <div class="search-wrapper">
     <div class="search-container">
       <form [formGroup]="searchForm" (ngSubmit)="onSearch($event)">
@@ -44,7 +38,15 @@
       </form>
     </div>
   </div>
+
   <div *ngIf="answer" class="answer-container">
-    <p>{{ answer }}</p>
+    <div [innerHTML]="formattedAnswer"></div>
+
+    <div class="spinner-container">
+      <div class="spinner">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+      </div>
+    </div>
   </div>
 </div>
