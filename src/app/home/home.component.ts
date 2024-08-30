@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { RestConnectService } from './rest-connect.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +19,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private fb: FormBuilder, 
     private restConnectService: RestConnectService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private spinner: NgxSpinnerService 
   ) {
     this.searchForm = this.fb.group({
       query: '',
@@ -37,6 +39,7 @@ export class HomeComponent implements OnInit {
     const selectedContext = this.selectedContext;
 
     if (query) {
+      this.spinner.show();
       this.restConnectService.search(query, selectedContext).subscribe(
         response => {
           const answerStartIndex = response.answer.indexOf('Answer: ');
@@ -50,6 +53,9 @@ export class HomeComponent implements OnInit {
         },
         error => {
           console.error('Error fetching data:', error);
+        },
+        () => {
+          this.spinner.hide(); 
         }
       );
     }
