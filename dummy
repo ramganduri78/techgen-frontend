@@ -7,3 +7,11 @@ onContextChange() {
       this.placeholderText = 'Enter your prompt...';
     }
   }
+
+
+<div *ngIf="showAdditionalContext" class="select-wrapper">
+      <select class="select-input">
+        <option value="" disabled selected>Select Additional Context</option>
+        <!-- Add options for the additional context here -->
+      </select>
+    </div>
