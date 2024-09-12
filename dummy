@@ -15,3 +15,53 @@ onContextChange() {
         <!-- Add options for the additional context here -->
       </select>
     </div>
+
+
+# Define the specific folder paths
+rc_analyser_folder = os.path.join(current_dir, "Autosys/RCAnalyser")
+other_folder = os.path.join(current_dir, "Autosys")
+documents = []
+
+# Function to load documents from the RCAnalyser folder
+def load_rc_analyser_documents():
+    rc_documents = []
+    if os.path.exists(rc_analyser_folder):
+        for filename in os.listdir(rc_analyser_folder):
+            file_path = os.path.join(rc_analyser_folder, filename)
+            if os.path.isfile(file_path) and filename.endswith(".txt"):
+                with open(file_path, 'r', encoding='utf-8') as file:
+                    document_content = file.read()
+                    rc_documents.append(Document(page_content=document_content, metadata={"source": rc_analyser_folder}))
+    return rc_documents
+
+# Function to load documents from other folders
+def load_other_documents():
+    other_documents = []
+    if os.path.exists(other_folder):
+        for filename in os.listdir(other_folder):
+            file_path = os.path.join(other_folder, filename)
+            if os.path.isfile(file_path) and filename.endswith(".txt"):
+                with open(file_path, 'r', encoding='utf-8') as file:
+                    document_content = file.read()
+                    other_documents.append(Document(page_content=document_content, metadata={"source": other_folder}))
+    return other_documents
+
+# Load documents from both folders
+documents.extend(load_rc_analyser_documents())
+documents.extend(load_other_documents())
+
+
+
+class FilteredRetriever(VectorStoreRetriever):
+    def __init__(self, vectorstore, filter_prefix):
+        super().__init__(vectorstore=vectorstore)
+        self.filter_prefix = filter_prefix
+
+    def get_relevant_documents(self, query: str) -> list:
+        # Use the regex filter to get relevant documents
+        results = self.vectorstore.query(
+            query_texts=[query],
+            where={"metadata.source": {"$regex": f"^{self.filter_prefix}"}},
+            n_results=3
+        )
+        return results
