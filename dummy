@@ -65,3 +65,16 @@ class FilteredRetriever(VectorStoreRetriever):
             n_results=3
         )
         return results
+
+
+# Create a filtered retriever for the RCAnalyser folder
+filtered_retriever = FilteredRetriever(vectorstore=vectordb, filter_prefix=rc_analyser_folder)
+
+# Now you can use this filtered retriever in your RetrievalQA chain
+qa_chain = RetrievalQA(retriever=filtered_retriever)
+
+# Example query
+context = "RCAnalyser"
+query = "What is the purpose of RCAnalyser?"
+relevant_documents = filtered_retriever.get_relevant_documents(query)
+print("Relevant documents for 'RCAnalyser':", relevant_documents)
