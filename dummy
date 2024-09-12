@@ -1,0 +1,9 @@
+onContextChange() {
+    if (this.selectedContext === 'RCAnalyser') {
+      this.showAdditionalContext = true;
+      this.placeholderText = 'Explain your issue promptly to get Problem, solution and Recommendations';
+    } else {
+      this.showAdditionalContext = false;
+      this.placeholderText = 'Enter your prompt...';
+    }
+  }
