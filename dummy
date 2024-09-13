@@ -83,33 +83,22 @@ where_filter = {"path": ["Country"], "operator": "Equal", "valueString": "USA"}4
 
 
 
-import re
+class Document:
+    def __init__(self, metadata: dict, page_content: str):
+        self.metadata = metadata
+        self.page_content = page_content
 
-def search_in_documents(documents, search_text):
+def search_in_documents(documents: List[Document], search_text: str) -> List[str]:
     # List to store matching document results
     matched_content = []
-
     # Iterate through all documents
     for doc in documents:
         # Check if search text exists in the document's content
         if search_text.lower() in doc.page_content.lower():
             # Extract content from the Problem Statement marker to the end of the document
-            match = re.search(r'### \Problem Statement:\(.*)', doc.page_content, re.DOTALL)
+            match = re.search(r'### Problem Statement:(.*)', doc.page_content, re.DOTALL)
             if match:
                 # Append the matching part to the results list
                 matched_content.append(match.group(1).strip())
     
     return matched_content
-
-# Example usage
-documents = [
-    # Example Document objects
-    {'metadata': {'type': 'RCAnalyser'}, 'page_content': "Some intro text... ### Problem Statement: Here is the issue... Some more details..."},
-    {'metadata': {'type': 'RCAnalyser'}, 'page_content': "Unrelated content..."}
-]
-
-search_text = "issue"
-result = search_in_documents(documents, search_text)
-
-for i, content in enumerate(result, 1):
-    print(f"Matching Document {i}:\n{content}\n")
